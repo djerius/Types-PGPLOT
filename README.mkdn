@@ -1,0 +1,117 @@
+# NAME
+
+Types::PGPLOT - Type::Tiny compatible types for the PGPLOT library
+
+# VERSION
+
+version 0.01
+
+# SYNOPSIS
+
+# TYPES
+
+## Angle
+
+A real number in \[-360,360\].
+
+## ArrowHeadFillStyle
+
+An integer in \[1,2\].
+
+Coercions are provided for Str types with one of the following values:
+
+    filled solid outline
+
+## CharacterHeight
+
+A positive real number.
+
+## Color
+
+An integer in \[0,255\].
+
+Coercions are provided for Str types with one of the following values:
+
+    background foreground
+    black      magenta         blue-magenta
+    white      yellow          red-magenta
+    red        orange          dark-gray
+    green      green-yellow    light-gray
+    blue       green-cyan      darkgray
+    cyan       blue-cyan       lightgray
+
+## FillAreaStyle
+
+An integer in \[1,4\].
+
+Coercions are provided for Str types with one of the following values:
+
+    solid outline hatched cross-hatched
+
+## Font
+
+An integer in \[1,4\].
+
+Coercions are provided for Str types with one of the following values:
+
+    normal roman italic script
+
+## LineStyle
+
+An integer in \[1,5\].
+
+Coercions are provided for Str types with one of the following values:
+
+    full dashed dot-dash-dot-dash dotted dash-dot-dot-dot
+
+## LineWidth
+
+An integer in \[1,201\].
+
+## PlotUnits
+
+An integer in \[0,4\].
+
+Coercions are provided for Str types with one of the following values:
+
+    ndc normalized-device-coordinates
+    in inches
+    mm millimeters
+    pixels
+    wc world-coordinates
+
+## XAxisOptions
+
+A string containing any of the characters in `ABCGILNPMTS12`, where no character repeats.
+
+## YAxisOptions
+
+A string containing any of the characters in `ABCGILNPMTSV12`, where no character repeats.
+
+# BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+[https://rt.cpan.org/Public/Dist/Display.html?Name=Types-PGPLOT](https://rt.cpan.org/Public/Dist/Display.html?Name=Types-PGPLOT) or by
+email to
+[bug-Types-PGPLOT@rt.cpan.org](mailto:bug-Types-PGPLOT@rt.cpan.org).
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+# SOURCE
+
+The development version is on github at [https://github.com/djerius/types-pgplot](https://github.com/djerius/types-pgplot)
+and may be cloned from [git://github.com/djerius/types-pgplot.git](git://github.com/djerius/types-pgplot.git)
+
+# AUTHOR
+
+Diab Jerius <djerius@cpan.org>
+
+# COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2018 by Smithsonian Astrophysical Observatory.
+
+This is free software, licensed under:
+
+    The GNU General Public License, Version 3, June 2007
