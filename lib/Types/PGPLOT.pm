@@ -19,12 +19,13 @@ use Type::Library
   LineStyle
   LineWidth
   PlotUnits
+  Symbol
   XAxisOptions
   YAxisOptions
 ];
 
 use Types::Common::Numeric qw[ IntRange NumRange PositiveNum ];
-use Types::Standard qw[ Str Dict ];
+use Types::Standard qw[ Str Dict ScalarRef ];
 use Type::Utils -all;
 
 # Package scoped hashes are made readonly so that we can allow their
@@ -241,6 +242,128 @@ declare PlotUnits, as IntRange [ 0, 4 ];
 coerce PlotUnits, from Str,
   via { exists $Map_PlotUnits{ lc $_ } ? $Map_PlotUnits{ lc $_ } : $_ };
 
+
+=type Symbol
+
+An integer in [-31,255]
+
+Coercions are provided for string or references to strings with one of
+the following values:
+
+    doicosagon              dodecagon               triangle
+    henicosagon             hendecagon              dot0
+    icosagon                decagon                 dot1
+    enneadecagon            nonagon                 opensquare
+    octadecagon             enneagon                dot
+    heptadecagon            octagon                 plus
+    hexadecagon             heptagon                asterisk
+    pentaadecagon           hexagon                 opencircle
+    tetradecagon            pentagon                cross
+    tridecagon              diamond                 x
+    opensquare1             stardavid               opencirc4
+    opentriangle            square                  opencirc5
+    earth                   circle                  opencirc6
+    sun                     star                    opencirc7
+    curvesquare             bigosquare              backarrow
+    opendiamond             opencirc0               fwdarrow
+    openstar                opencirc1               uparrow
+    triangle1               opencirc2               downarrow
+    openplus                opencirc3
+
+as well as characters with unicode/ascii codes in [32, 127].
+
+Because Perl well treat digits stored as strings as numbers rather than
+strings, the characters C<0>, C<1>, C<2>, C<3>, C<4>, C<5>, C<6>, C<7>, C<8>, C<9>
+will get treated as integers, not characters, so the resultant symbols
+will not be the expected characters.  To ensure that a character is
+treated as a character, pass a reference to it.  This will bypass the
+automatic conversion to integer.
+
+=cut
+
+our %Map_SymbolName = (
+    doicosagon    => -22,
+    henicosagon   => -21,
+    icosagon      => -20,
+    enneadecagon  => -19,
+    octadecagon   => -18,
+    heptadecagon  => -17,
+    hexadecagon   => -16,
+    pentaadecagon => -15,
+    tetradecagon  => -14,
+    tridecagon    => -13,
+    dodecagon     => -12,
+    hendecagon    => -11,
+    decagon       => -10,
+    nonagon       => -9,
+    enneagon      => -9,
+    octagon       => -8,
+    heptagon      => -7,
+    hexagon       => -6,
+    pentagon      => -5,
+    diamond       => -4,
+    triangle      => -3,
+    dot0          => -2,
+    dot1          => -1,
+    opensquare    => 0,
+    dot           => 1,
+    plus          => 2,
+    asterisk      => 3,
+    opencircle    => 4,
+    cross         => 5,
+    opensquare1   => 6,
+    opentriangle  => 7,
+    earth         => 8,
+    sun           => 9,
+    curvesquare   => 10,
+    opendiamond   => 11,
+    openstar      => 12,
+    triangle1     => 13,
+    openplus      => 14,
+    stardavid     => 15,
+    square        => 16,
+    circle        => 17,
+    star          => 18,
+    bigosquare    => 19,
+    opencirc0     => 20,
+    opencirc1     => 21,
+    opencirc2     => 22,
+    opencirc3     => 23,
+    opencirc4     => 24,
+    opencirc5     => 25,
+    opencirc6     => 26,
+    opencirc7     => 27,
+    backarrow     => 28,
+    fwdarrow      => 29,
+    uparrow       => 30,
+    downarrow     => 31
+);
+
+readonly \%Map_SymbolName;
+
+declare Symbol, as IntRange [ -31, 255 ];
+
+coerce Symbol, from ScalarRef, via {
+    return $_ unless 'SCALAR' eq ref $_;
+    my $str = "$$_";
+
+    my $name = lc $str;
+    return $Map_SymbolName{ $name } if exists $Map_SymbolName{ $name };
+
+    my $ord = ord( $str );
+    return $ord > 31 && $ord < 128 ? $ord : $_;
+
+};
+
+coerce Symbol, from Str, via {
+
+    my $name = lc $_;
+    return $Map_SymbolName{ $name } if exists $Map_SymbolName{ $name };
+
+    my $ord = ord( $_ );
+
+    return $ord > 31 && $ord < 128 ? $ord : $_;
+};
 
 
 =type XAxisOptions

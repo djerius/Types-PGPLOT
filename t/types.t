@@ -112,6 +112,29 @@ subtest PlotUnits => sub {
     should_fail( $_, $Type ) for 0.5, -1, 8;
 
     test_coercions( $Type, %Types::PGPLOT::Map_PlotUnits);
+};
+
+subtest Symbol => sub {
+
+    my $Type = Symbol;
+    should_pass( $_, $Type ) for -8 .. 255;
+
+    should_fail( $_, $Type ) for -32, 256;
+
+    test_coercions( $Type, %Types::PGPLOT::Map_SymbolName );
+
+    for my $ord ( 32 .. 127 ) {
+        my $char = chr( $ord );
+
+        next if $char =~/^[0-9]$/; # something that looks
+                                   # like an integer will get treated
+                                   # as an integer, not as a character
+
+        is( $Type->coerce( $char ),  $ord, "coerce $char" );
+        is( $Type->coerce( \$char ), $ord, "coerce \\$char" );
+    }
+
+
 
 };
 

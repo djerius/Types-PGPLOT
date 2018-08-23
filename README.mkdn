@@ -46,7 +46,7 @@ An integer in \[1,4\].
 
 Coercions are provided for Str types with one of the following values:
 
-    solid outline hatched cross-hatched
+    solid filled outline hatched cross-hatched
 
 ## Font
 
@@ -79,6 +79,42 @@ Coercions are provided for Str types with one of the following values:
     mm millimeters
     pixels
     wc world-coordinates
+
+## Symbol
+
+An integer in \[-31,255\]
+
+Coercions are provided for string or references to strings with one of
+the following values:
+
+    doicosagon              dodecagon               triangle
+    henicosagon             hendecagon              dot0
+    icosagon                decagon                 dot1
+    enneadecagon            nonagon                 opensquare
+    octadecagon             enneagon                dot
+    heptadecagon            octagon                 plus
+    hexadecagon             heptagon                asterisk
+    pentaadecagon           hexagon                 opencircle
+    tetradecagon            pentagon                cross
+    tridecagon              diamond                 x
+    opensquare1             stardavid               opencirc4
+    opentriangle            square                  opencirc5
+    earth                   circle                  opencirc6
+    sun                     star                    opencirc7
+    curvesquare             bigosquare              backarrow
+    opendiamond             opencirc0               fwdarrow
+    openstar                opencirc1               uparrow
+    triangle1               opencirc2               downarrow
+    openplus                opencirc3
+
+as well as characters with unicode/ascii codes in \[32, 127\].
+
+Because Perl well treat digits stored as strings as numbers rather than
+strings, the characters `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`
+will get treated as integers, not characters, so the resultant symbols
+will not be the expected characters.  To ensure that a character is
+treated as a character, pass a reference to it.  This will bypass the
+automatic conversion to integer.
 
 ## XAxisOptions
 
