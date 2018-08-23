@@ -279,7 +279,7 @@ __END__
 
 =begin stopwords
 
- ArrowHeadFilltyle
+ ArrowHeadFillStyle
  CharacterHeight
  FillAreaStyle
  LineStyle
@@ -287,6 +287,7 @@ __END__
  PlotUnits
  XAxisOptions
  YAxisOptions
+ Str
 
 =end stopwords
 
