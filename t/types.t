@@ -17,7 +17,7 @@ sub test_coercions {
 
     my ( $Type, %Map ) = @_;
 
-    my $ctx = context ();
+    my $ctx = context();
 
 
     is( $Type->coerce( rand_case $_->[0] ), $_->[1], "coerce $_->[0]" )
@@ -70,7 +70,7 @@ subtest FillAreaStyle => sub {
     should_pass( $_, $Type ) for 1 .. 4;
     should_fail( $_, $Type ) for 0.5, -1, 0, 8;
 
-    test_coercions( $Type, %Types::PGPLOT::Map_FillAreaStyle);
+    test_coercions( $Type, %Types::PGPLOT::Map_FillAreaStyle );
 };
 
 subtest Font => sub {
@@ -80,7 +80,7 @@ subtest Font => sub {
     should_pass( $_, $Type ) for 1 .. 4;
     should_fail( $_, $Type ) for 0.5, -1, 0, 8;
 
-    test_coercions( $Type, %Types::PGPLOT::Map_Font);
+    test_coercions( $Type, %Types::PGPLOT::Map_Font );
 
 };
 
@@ -91,7 +91,7 @@ subtest LineStyle => sub {
     should_pass( $_, $Type ) for 1 .. 5;
     should_fail( $_, $Type ) for 0.5, -1, 0, 8;
 
-    test_coercions( $Type, %Types::PGPLOT::Map_LineStyle);
+    test_coercions( $Type, %Types::PGPLOT::Map_LineStyle );
 
 };
 
@@ -111,7 +111,8 @@ subtest PlotUnits => sub {
     should_pass( $_, $Type ) for 0 .. 4;
     should_fail( $_, $Type ) for 0.5, -1, 8;
 
-    test_coercions( $Type, %Types::PGPLOT::Map_PlotUnits);
+    test_coercions( $Type, %Types::PGPLOT::Map_PlotUnits );
+
 };
 
 subtest Symbol => sub {
@@ -126,15 +127,13 @@ subtest Symbol => sub {
     for my $ord ( 32 .. 127 ) {
         my $char = chr( $ord );
 
-        next if $char =~/^[0-9]$/; # something that looks
-                                   # like an integer will get treated
-                                   # as an integer, not as a character
+        next if $char =~ /^[0-9]$/;    # something that looks
+                                       # like an integer will get treated
+                                       # as an integer, not as a character
 
         is( $Type->coerce( $char ),  $ord, "coerce $char" );
         is( $Type->coerce( \$char ), $ord, "coerce \\$char" );
     }
-
-
 
 };
 

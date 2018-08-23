@@ -417,5 +417,15 @@ __END__
 
 =head1 SYNOPSIS
 
+ use Types::PGPLOT -types;
+ use Type::Params qw( validate );
+
+ my ( $lstyle ) = validate( [ 'full' ], LineStyle );
+
+
+=head1 DESCRIPTION
+
+B<Types::PGPLOT> provides L<Type::Tiny> types for constants used by the PGPLOT library.
+
 
 =head1 SEE ALSO

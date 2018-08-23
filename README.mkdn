@@ -8,6 +8,15 @@ version 0.01
 
 # SYNOPSIS
 
+    use Types::PGPLOT -types;
+    use Type::Params qw( validate );
+
+    my ( $lstyle ) = validate( [ 'full' ], LineStyle );
+
+# DESCRIPTION
+
+**Types::PGPLOT** provides [Type::Tiny](https://metacpan.org/pod/Type::Tiny) types for constants used by the PGPLOT library.
+
 # TYPES
 
 ## Angle
