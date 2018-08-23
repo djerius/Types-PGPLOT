@@ -4,7 +4,6 @@ package Types::PGPLOT;
 
 use strict;
 use warnings;
-use Readonly::Tiny;
 
 our $VERSION = '0.01';
 
@@ -28,6 +27,13 @@ use Types::Common::Numeric qw[ IntRange NumRange PositiveNum ];
 use Types::Standard qw[ Str Dict ];
 use Type::Utils -all;
 
+# Package scoped hashes are made readonly so that we can allow their
+# use outside of this module (e.g. for testing). Note however, that
+# the common usage of $Map{$key} // $key will throw an exception if $Map{$key}
+# does not exist.  Therefore, in code using the restricted hashes,
+# always for check for existence before retrieving values.
+
+use Readonly::Tiny;
 
 =type Angle
 
@@ -112,7 +118,9 @@ our %Map_Color = (
 readonly \%Map_Color;
 
 declare Color, as IntRange [ 0, 255 ];
-coerce Color, from Str, via { $Map_Color{ lc $_ } // $_ };
+
+coerce Color, from Str,
+  via { exists $Map_Color{ lc $_ } ? $Map_Color{ lc $_ } : $_ };
 
 
 
@@ -136,7 +144,8 @@ our %Map_FillAreaStyle = (
 readonly \%Map_FillAreaStyle;
 
 declare FillAreaStyle, as IntRange [ 1, 4 ];
-coerce FillAreaStyle, from Str, via { $Map_FillAreaStyle{ lc $_ } // $_ };
+coerce FillAreaStyle, from Str,
+  via { exists $Map_FillAreaStyle{ lc $_ } ? $Map_FillAreaStyle{ lc $_ } : $_ };
 
 
 =type Font
@@ -159,7 +168,8 @@ our %Map_Font = (
 readonly \%Map_Font;
 
 declare Font, as IntRange [ 1, 4 ];
-coerce Font, from Str, via { $Map_Font{ lc $_ } // $_ };
+coerce Font, from Str,
+  via { exists $Map_Font{ lc $_ } ? $Map_Font{ lc $_ } : $_ };
 
 
 =type LineStyle
@@ -183,7 +193,8 @@ our %Map_LineStyle = (
 readonly \%Map_LineStyle;
 
 declare LineStyle, as IntRange [ 1, 5 ];
-coerce LineStyle, from Str, via { $Map_LineStyle{ lc $_ } // $_ };
+coerce LineStyle, from Str,
+  via { exists $Map_LineStyle{ lc $_ } ? $Map_LineStyle{ lc $_ } : $_ };
 
 
 =type LineWidth
@@ -226,7 +237,8 @@ our %Map_PlotUnits = (
 readonly \%Map_PlotUnits;
 
 declare PlotUnits, as IntRange [ 0, 4 ];
-coerce PlotUnits, from Str, via { $Map_PlotUnits{ lc $_ } // $_ };
+coerce PlotUnits, from Str,
+  via { exists $Map_PlotUnits{ lc $_ } ? $Map_PlotUnits{ lc $_ } : $_ };
 
 
 
