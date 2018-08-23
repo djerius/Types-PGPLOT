@@ -130,12 +130,13 @@ An integer in [1,4].
 
 Coercions are provided for Str types with one of the following values:
 
-  solid outline hatched cross-hatched
+  solid filled outline hatched cross-hatched
 
 =cut
 
 our %Map_FillAreaStyle = (
     solid           => 1,
+    filled          => 1,
     outline         => 2,
     hatched         => 3,
     'cross-hatched' => 4,
