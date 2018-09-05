@@ -2,6 +2,8 @@ package Types::PGPLOT;
 
 # ABSTRACT: Type::Tiny compatible types for the PGPLOT library
 
+use 5.0100;
+
 use strict;
 use warnings;
 
