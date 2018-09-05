@@ -1,6 +1,5 @@
 CONTRIB
 \bRCS\b
-^MANIFEST\.
 ^Makefile$
 ^Build$
 ^GNUmakefile
